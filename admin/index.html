@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Admin | Make It Work</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/admin/styles.css" />
+  </head>
+  <body class="admin-body">
+    <section class="auth-screen" data-view="loading">
+      <div class="auth-card"><p>Loading…</p></div>
+    </section>
+
+    <section class="auth-screen" data-view="login" hidden>
+      <form class="auth-card admin-form" id="login-form">
+        <img src="/images/logo.png" alt="Make It Work" class="auth-logo" />
+        <h1>Admin login</h1>
+        <label>Email <input type="email" name="email" autocomplete="username" required /></label>
+        <label>Password <input type="password" name="password" autocomplete="current-password" required /></label>
+        <p class="admin-message" data-message hidden></p>
+        <button type="submit">Log in</button>
+        <button type="button" class="link-button" data-forgot>Forgot password?</button>
+      </form>
+    </section>
+
+    <section class="auth-screen" data-view="set-password" hidden>
+      <form class="auth-card admin-form" id="password-form">
+        <img src="/images/logo.png" alt="Make It Work" class="auth-logo" />
+        <h1 data-password-title>Choose a password</h1>
+        <label>New password <input type="password" name="password" autocomplete="new-password" minlength="8" required /></label>
+        <p class="admin-message" data-message hidden></p>
+        <button type="submit">Save password</button>
+      </form>
+    </section>
+
+    <section class="auth-screen" data-view="no-access" hidden>
+      <div class="auth-card">
+        <img src="/images/logo.png" alt="Make It Work" class="auth-logo" />
+        <h1>No admin access</h1>
+        <p>You're logged in as <strong data-user-email></strong>, but this account doesn't have the admin role yet.</p>
+        <button type="button" class="secondary" data-logout>Log out</button>
+      </div>
+    </section>
+
+    <div class="admin-shell" data-view="dashboard" hidden>
+      <aside class="admin-sidebar">
+        <div class="admin-brand">
+          <img src="/images/logo.png" alt="Make It Work" />
+          <p>Admin area</p>
+        </div>
+        <nav class="admin-nav" aria-label="Admin sections">
+          <button type="button" data-tab="bookings" class="active">Bookings <span class="badge" data-new-count hidden></span></button>
+          <button type="button" data-tab="gallery">Gallery</button>
+          <button type="button" data-tab="services">Services</button>
+        </nav>
+        <div class="admin-sidebar-footer">
+          <a href="/" target="_blank" rel="noreferrer">View website ↗</a>
+          <p data-user-email></p>
+          <button type="button" class="secondary" data-logout>Log out</button>
+        </div>
+      </aside>
+
+      <main class="admin-main">
+        <section class="admin-panel" data-panel="bookings">
+          <div class="panel-header">
+            <h2>Bookings</h2>
+            <label class="inline-label">Show
+              <select data-booking-filter>
+                <option value="">All</option>
+                <option value="new" selected>New</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </label>
+          </div>
+          <div class="admin-list" id="bookings-list"></div>
+        </section>
+
+        <section class="admin-panel" data-panel="gallery" hidden>
+          <div class="panel-header"><h2>Gallery</h2></div>
+          <form class="admin-form" id="gallery-form">
+            <input type="hidden" name="id" />
+            <h3 data-gallery-form-title>Upload a photo</h3>
+            <label data-gallery-file>Photo <input type="file" name="image" accept="image/*" /></label>
+            <div class="form-row">
+              <label>Title <input type="text" name="title" placeholder="e.g. Kitchen shelving" /></label>
+              <label>Display order <input type="number" name="sortOrder" value="0" /></label>
+            </div>
+            <label>Caption <textarea name="caption" rows="2" placeholder="Optional short description"></textarea></label>
+            <p class="admin-message" data-message hidden></p>
+            <div class="form-actions">
+              <button type="submit">Save photo</button>
+              <button type="button" class="secondary" data-clear-gallery>Cancel</button>
+            </div>
+          </form>
+          <div class="admin-grid" id="gallery-list"></div>
+        </section>
+
+        <section class="admin-panel" data-panel="services" hidden>
+          <div class="panel-header"><h2>Services</h2></div>
+          <form class="admin-form" id="service-form">
+            <input type="hidden" name="id" />
+            <h3 data-service-form-title>Add a service</h3>
+            <div class="form-row">
+              <label>Name <input type="text" name="name" required /></label>
+              <label>Display order <input type="number" name="sortOrder" value="0" /></label>
+            </div>
+            <label>Description <textarea name="description" rows="3" required></textarea></label>
+            <label class="checkbox-label"><input type="checkbox" name="visible" checked /> Show on website</label>
+            <p class="admin-message" data-message hidden></p>
+            <div class="form-actions">
+              <button type="submit">Save service</button>
+              <button type="button" class="secondary" data-clear-service>Cancel</button>
+            </div>
+          </form>
+          <div class="admin-list" id="services-list"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="/resize-image.js"></script>
+    <script type="module" src="/admin/app.js"></script>
+  </body>
+</html>
