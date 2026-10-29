@@ -136,7 +136,7 @@ body:not([data-page="home"]) .nav-menu a:focus-visible {
   width: calc(100% - 18px);
 }
 
-.quote-button,
+.quote-button, 
 .primary-button,
 .call-button,
 .whatsapp-button,
