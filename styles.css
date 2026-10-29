@@ -99,14 +99,6 @@
    text-align: center;
  }
 
- .nav-menu a:focus,
- .nav-menu a:focus-visible,
- .nav-menu a:active {
-   outline: none;
-   box-shadow: none;
-   -webkit-tap-highlight-color: transparent;
- }
-
  body[data-page="home"] .nav-menu a {
    background: transparent;
    border: 1px solid transparent;
