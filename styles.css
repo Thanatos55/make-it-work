@@ -7,6 +7,7 @@
   --white: #ffffff;
   --green: #2bbf4a;
   --shadow: rgba(17, 17, 17, 0.13);
+  --danger: #d62828;
 }
 
 * { box-sizing: border-box; }
@@ -75,7 +76,7 @@ button, input, select, textarea { font: inherit; }
   line-height: 0.9;
   display: flex;
   align-items: baseline;
-  gap: 0.1em;
+  gap: 0.08em;
 }
 
 .make-it { color: #ffffff; }
@@ -758,6 +759,12 @@ label {
 label span {
   font-size: 0.9rem;
   color: rgba(17,17,17,0.8);
+}
+
+.required-star {
+  color: var(--danger);
+  margin-left: 2px;
+  font-weight: 700;
 }
 
 input, select, textarea {
