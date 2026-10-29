@@ -45,7 +45,7 @@ button, input, select, textarea { font: inherit; }
   align-items: center;
   justify-content: space-between;
   min-height: 108px;
-  gap: 22px;
+  gap: 18px;
   position: relative;
 }
 
@@ -54,6 +54,7 @@ button, input, select, textarea { font: inherit; }
   align-items: center;
   gap: 14px;
   min-width: 0;
+  flex-shrink: 0;
 }
 
 .brand-logo {
@@ -64,16 +65,18 @@ button, input, select, textarea { font: inherit; }
 }
 
 .main-nav {
-  flex: 1;
+  flex: 1 1 auto;
   display: flex;
   justify-content: center;
+  min-width: 0;
 }
 
 .nav-menu {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 22px;
+  justify-content: space-between;
+  width: 100%;
+  gap: 12px;
 }
 
 .nav-menu a {
@@ -82,7 +85,8 @@ button, input, select, textarea { font: inherit; }
   align-items: center;
   justify-content: center;
   min-height: 44px;
-  min-width: 110px;
+  flex: 1 1 0;
+  min-width: 0;
   padding: 10px 18px;
   border-radius: 10px;
   color: var(--white);
@@ -92,6 +96,7 @@ button, input, select, textarea { font: inherit; }
   letter-spacing: 0.02em;
   opacity: 0.96;
   transition: background-color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+  text-align: center;
 }
 
 body[data-page="home"] .nav-menu a {
@@ -164,6 +169,7 @@ body:not([data-page="home"]) .nav-menu a:focus-visible {
   color: var(--white);
   padding: 0.8rem 1.5rem;
   min-width: 180px;
+  flex-shrink: 0;
 }
 
 .header-quote svg,
@@ -848,6 +854,7 @@ textarea {
   .nav-menu a {
     padding: 8px 0;
     width: 100%;
+    flex: none;
   }
   .nav-menu a::after { display: none; }
   .header-quote { min-width: auto; padding: 0.7rem 1rem; }
