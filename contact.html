@@ -51,16 +51,17 @@
             <p><strong>Email:</strong> <a href="mailto:email@to-be-provided.com">EMAIL TO BE PROVIDED</a></p>
           </div>
 
-          <form id="appointment-form" class="quote-form" name="appointment-form" method="POST" data-netlify="true" enctype="multipart/form-data">
+          <form id="appointment-form" class="quote-form" name="appointment-form" method="POST" action="/api/bookings" enctype="multipart/form-data">
             <h2>REQUEST A BOOKING</h2>
+            <p class="honeypot" aria-hidden="true"><label>Company <input type="text" name="company" tabindex="-1" autocomplete="off" /></label></p>
             <div class="form-grid">
               <label>
                 <span>Full name <span class="required-star" aria-label="required">*</span></span>
                 <input type="text" name="full-name" required />
               </label>
               <label>
-                <span>Email address <span class="required-star" aria-label="required">*</span></span>
-                <input type="email" name="email" required />
+                <span>Email address</span>
+                <input type="email" name="email" />
               </label>
               <label>
                 <span>Telephone number <span class="required-star" aria-label="required">*</span></span>
@@ -80,7 +81,7 @@
               </label>
               <label class="full-width">
                 <span>Service required <span class="required-star" aria-label="required">*</span></span>
-                <select name="service-required" required>
+                <select name="service-required" required data-service-select>
                   <option value="">Select a service</option>
                   <option>General repairs</option>
                   <option>Lighting</option>
@@ -100,6 +101,7 @@
                 <input type="file" name="photo" accept="image/*" multiple />
               </label>
             </div>
+            <p class="form-message" role="status" aria-live="polite" hidden></p>
             <button type="submit" class="submit-button">BOOK APPOINTMENT</button>
           </form>
         </div>
@@ -115,6 +117,7 @@
       </div>
     </footer>
 
+    <script src="./resize-image.js"></script>
     <script src="./script.js"></script>
   </body>
 </html>
