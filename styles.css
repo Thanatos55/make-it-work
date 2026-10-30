@@ -163,16 +163,6 @@ body:not([data-page="home"]) .nav-menu a:focus-visible {
   filter: brightness(1.02);
 }
 
-.header-quote {
-  border: 2px solid rgba(255,255,255,0.95);
-  background: rgba(255,255,255,0.04);
-  color: var(--white);
-  padding: 0.8rem 1.5rem;
-  min-width: 180px;
-  flex-shrink: 0;
-}
-
-.header-quote svg,
 .primary-button svg,
 .call-button svg,
 .whatsapp-button svg,
@@ -938,7 +928,6 @@ textarea {
     flex: none;
   }
   .nav-menu a::after { display: none; }
-  .header-quote { min-width: auto; padding: 0.7rem 1rem; }
   .hero-inner,
   .contact-layout,
   .service-detail-grid,
