@@ -83,7 +83,9 @@ const renderBookings = () => {
         </select>
       </header>
       <dl class="booking-details">
-        <div><dt>Preferred</dt><dd>${formatDate(booking.preferredDate)} at ${escapeHtml(booking.preferredTime)}</dd></div>
+        <div><dt>${booking.preferredDateTo ? 'Preferred window' : 'Preferred date'}</dt><dd>${booking.preferredDateTo
+          ? `Any day ${escapeHtml(formatDate(booking.preferredDate))} – ${escapeHtml(formatDate(booking.preferredDateTo))}`
+          : escapeHtml(formatDate(booking.preferredDate))} at ${escapeHtml(booking.preferredTime)}</dd></div>
         <div><dt>Phone</dt><dd><a href="tel:${escapeHtml(booking.telephone)}">${escapeHtml(booking.telephone)}</a></dd></div>
         <div><dt>Email</dt><dd>${booking.email ? `<a href="mailto:${escapeHtml(booking.email)}">${escapeHtml(booking.email)}</a>` : '<span class="muted">Not given</span>'}</dd></div>
         <div><dt>Postcode</dt><dd>${escapeHtml(booking.postcode)}</dd></div>

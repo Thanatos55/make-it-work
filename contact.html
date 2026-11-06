@@ -66,14 +66,33 @@
                 <span>Postcode <span class="required-star" aria-label="required">*</span></span>
                 <input type="text" name="postcode" required />
               </label>
-              <label>
-                <span>Preferred date <span class="required-star" aria-label="required">*</span></span>
-                <input type="date" name="preferred-date" required />
-              </label>
-              <label>
-                <span>Preferred time <span class="required-star" aria-label="required">*</span></span>
-                <input type="time" name="preferred-time" required />
-              </label>
+              <fieldset class="full-width date-choice" data-date-choice>
+                <legend>When would suit you? <span class="required-star" aria-label="required">*</span></legend>
+                <div class="date-mode">
+                  <label class="date-mode-option">
+                    <input type="radio" name="date-mode" value="exact" checked />
+                    <span>Exact date</span>
+                  </label>
+                  <label class="date-mode-option">
+                    <input type="radio" name="date-mode" value="range" />
+                    <span>Date range (any day between)</span>
+                  </label>
+                </div>
+                <div class="date-fields">
+                  <label>
+                    <span data-date-from-label>Preferred date</span>
+                    <input type="date" name="preferred-date" required />
+                  </label>
+                  <label data-date-to hidden>
+                    <span>Latest date</span>
+                    <input type="date" name="preferred-date-to" disabled />
+                  </label>
+                  <label>
+                    <span>Preferred time</span>
+                    <input type="time" name="preferred-time" required />
+                  </label>
+                </div>
+              </fieldset>
               <label class="full-width">
                 <span>Service required <span class="required-star" aria-label="required">*</span></span>
                 <select name="service-required" required data-service-select>
