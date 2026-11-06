@@ -5,7 +5,16 @@ if (navToggle && navMenu) {
   navToggle.addEventListener('click', () => {
     const expanded = navToggle.getAttribute('aria-expanded') === 'true';
     navToggle.setAttribute('aria-expanded', String(!expanded));
+    navToggle.setAttribute('aria-label', expanded ? 'Open menu' : 'Close menu');
     navMenu.classList.toggle('menu-open');
+  });
+
+  navMenu.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('menu-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.setAttribute('aria-label', 'Open menu');
+    });
   });
 }
 
