@@ -7,6 +7,8 @@ export const bookings = pgTable("bookings", {
   telephone: text().notNull(),
   postcode: text().notNull(),
   preferredDate: text("preferred_date").notNull(),
+  // Set when the customer gives a date range; null means an exact date
+  preferredDateTo: text("preferred_date_to"),
   preferredTime: text("preferred_time").notNull(),
   service: text().notNull(),
   description: text().notNull(),

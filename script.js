@@ -97,6 +97,36 @@ if (appointmentForm) {
   const message = appointmentForm.querySelector('.form-message');
   const submitButton = appointmentForm.querySelector('[type="submit"]');
 
+  // Exact date or a "between X and Y" range
+  const dateChoice = appointmentForm.querySelector('[data-date-choice]');
+  const dateFrom = appointmentForm.querySelector('[name="preferred-date"]');
+  const dateTo = appointmentForm.querySelector('[name="preferred-date-to"]');
+  const dateToField = appointmentForm.querySelector('[data-date-to]');
+  const dateFromLabel = appointmentForm.querySelector('[data-date-from-label]');
+
+  const localToday = () => {
+    const now = new Date();
+    return new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+  };
+
+  const syncDateMode = () => {
+    const isRange = appointmentForm.querySelector('[name="date-mode"]:checked')?.value === 'range';
+    dateChoice.classList.toggle('is-range', isRange);
+    dateToField.hidden = !isRange;
+    dateTo.disabled = !isRange;
+    dateTo.required = isRange;
+    dateFromLabel.textContent = isRange ? 'Earliest date' : 'Preferred date';
+    const today = localToday();
+    dateFrom.min = today;
+    dateTo.min = dateFrom.value || today;
+    if (dateTo.value && dateFrom.value && dateTo.value < dateFrom.value) dateTo.value = '';
+  };
+
+  appointmentForm.querySelectorAll('[name="date-mode"]').forEach((radio) => radio.addEventListener('change', syncDateMode));
+  dateFrom.addEventListener('change', syncDateMode);
+  appointmentForm.addEventListener('reset', () => setTimeout(syncDateMode));
+  syncDateMode();
+
   const showMessage = (text, isError = false) => {
     message.textContent = text;
     message.classList.toggle('is-error', isError);
@@ -105,6 +135,11 @@ if (appointmentForm) {
 
   appointmentForm.addEventListener('submit', async (event) => {
     event.preventDefault();
+    if (!dateTo.disabled && dateTo.value && dateTo.value < dateFrom.value) {
+      showMessage('The latest date must be on or after the earliest date.', true);
+      dateTo.focus();
+      return;
+    }
     submitButton.disabled = true;
     submitButton.textContent = 'SENDING…';
     message.hidden = true;

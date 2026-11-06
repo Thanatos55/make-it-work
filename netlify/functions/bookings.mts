@@ -6,6 +6,7 @@ import { bookings } from "../../db/schema.js";
 import { requireAdmin, isImage, imageKey, MAX_IMAGE_BYTES } from "../../lib/auth.js";
 
 const STATUSES = ["new", "confirmed", "completed", "cancelled"];
+const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 const field = (form: FormData, name: string) => String(form.get(name) ?? "").trim();
 
 export default async (req: Request, context: Context) => {
@@ -29,6 +30,16 @@ export default async (req: Request, context: Context) => {
     const missing = Object.entries(values).filter(([k, v]) => k !== "email" && !v);
     if (missing.length) return Response.json({ error: "Please fill in all required fields." }, { status: 400 });
 
+    // Customers can give an exact date or a "between X and Y" range
+    const isRange = field(form, "date-mode") === "range";
+    const preferredDateTo = isRange ? field(form, "preferred-date-to") : "";
+    if (!ISO_DATE.test(values.preferredDate) || (isRange && !ISO_DATE.test(preferredDateTo))) {
+      return Response.json({ error: "Please choose a valid preferred date." }, { status: 400 });
+    }
+    if (isRange && preferredDateTo < values.preferredDate) {
+      return Response.json({ error: "The latest date must be on or after the earliest date." }, { status: 400 });
+    }
+
     const photos = form.getAll("photo").filter(isImage).slice(0, 6);
     if (photos.some((p) => p.size > MAX_IMAGE_BYTES)) {
       return Response.json({ error: "Each photo must be under 5 MB." }, { status: 400 });
@@ -42,7 +53,7 @@ export default async (req: Request, context: Context) => {
       photoKeys.push(key);
     }
 
-    const [booking] = await db.insert(bookings).values({ ...values, photoKeys }).returning({ id: bookings.id });
+    const [booking] = await db.insert(bookings).values({ ...values, preferredDateTo: preferredDateTo || null, photoKeys }).returning({ id: bookings.id });
     return Response.json({ ok: true, id: booking.id }, { status: 201 });
   }
 
